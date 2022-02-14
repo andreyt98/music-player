@@ -1,0 +1,72 @@
+.aside {
+  padding: 1rem 0;
+
+  position: fixed;
+  height: 100%;
+  width: 50%;
+  top: 0;
+  left: -100%;
+  z-index: 9999;
+  transition: all 0.3s;
+  background: $black-linear-gradient;
+  border-right: 1px solid $lightGrey;
+  text-align: center;
+
+  .logo{
+    letter-spacing: -.5px;
+    color: $primary;
+    font-family: 'Raleway', 'sans serif';
+    font-weight: 700;
+    font-size: 120%;
+  }
+
+  @media #{$tab-port-up} {
+    position: static;
+    width: auto;
+
+    grid-row: 1/3;
+  }
+
+  &__nav {
+    height: 100%;
+    padding-top: 6rem;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .8rem;
+    
+      li a{
+        font-weight: 300;
+        color:$grey;
+        transition: all 0.4s;
+       
+        &:hover{
+          color: white;
+          transform: scale(1.1);
+        }
+
+      }
+    }
+    
+    .menu-icon {
+      position: fixed;
+      left: 1%;
+      top: 2%;
+      z-index: 9999;
+      cursor: pointer;
+
+      @media #{$tab-port-up} {
+        display: none;
+      }
+    }
+
+    #heart, #plus{color: $primary; font-weight: 600;}
+
+  }
+}
+    
+.aside-active {
+  left: 0;
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+
+    <link rel="preload" href="public/css/main.css" as="style" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="public/css/main.css" />
+
+    <title>Spotify UI</title>
+
+    <!-- poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- raleway font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
+
+    <!-- font awesome icons cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- ........... -->
+  </head>
+  <body>
+    <div class="container grid">
+      <aside class="aside">
+        <p class="logo">&#9854;Music player</p>
+
+        <nav class="aside__nav">
+          <span class="menu-icon">&#9776;</span>
+
+          <ul>
+            <li><a href="">&#9750; Home</a></li>
+            <li><a href="">&#9906; Search</a></li>
+            <li><a href="">&#9834; Library</a></li>
+            <li>
+              <a href=""> <span id="plus">&plus;</span> Create playlist</a>
+            </li>
+            <li>
+              <a href=""> <span id="heart">&hearts;</span> Liked songs</a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <header class="header">
+        <div class="header__title">
+          <h1>LAMB OF GOD</h1>
+        </div>
+
+        <div class="bg"></div>
+      </header>
+
+      <section class="playlist">
+        <h2>Track List</h2>
+
+        <ul>
+          <li id="description">
+            <p>Title</p>
+            <p>Album</p>
+            <p>Duration</p>
+          </li>
+
+          <li>
+            <p class="song-title"><i class="fa-solid fa-play"</i></i> Delusion Pandemic</p>
+            <p>Sacrament</p>
+            <p>4:22</p>
+          </li>
+
+          <li>
+            <p class="song-title"> <i class="fa-solid fa-play"</i></i> Ghost Walking</p>
+            <p>Resolution</p>
+            <p>4:06</p>
+          </li>
+
+          <li>
+            <p class="song-title"><i class="fa-solid fa-play"</i></i> Checkmate</p>
+            <p>Lamb of God</p>
+            <p>5:28</p>
+          </li>
+        </ul>
+      </section>
+
+      <footer class="footer">
+
+        <section class="footer__player">
+
+          <div class="player__info">
+            <img src="https://icon-library.com/images/album-icon/album-icon-13.jpg" alt="band" />
+            <p id="title">title</p>
+            <p class="band">Lamb Of God</p>
+          </div>
+
+          <audio id="audio" controls="controls" src=""></audio>
+
+          <div class="music">
+            
+            <div class="bar">
+              <div class="bar__thumb">
+              </div>
+            </div>
+
+            <span id="duration"></span>
+
+
+            <div class="controls">
+              
+              
+              <button><i class="fa-solid fa-backward" id="prev"></i></button>
+              <button><i class="fa-solid fa-play" id="play"></i></button>
+              <button><i class="fa-solid fa-forward" id="next"></i></button>
+              
+            </div>
+          
+            
+          </div>
+
+          <div class="other">
+            <button>
+              <i class="fa-solid fa-repeat repeat"></i>
+            </button>
+
+            <button>
+              <i class="fa-solid fa-heart"></i>
+            </button>
+
+          </div>
+        </section>
+
+
+      </footer>
+    </div>
+
+   
+
+    <!-- JavaScript file -->
+    <script src="public/js/app.js"></script>
+    <script src="public/js/controls.js"></script>
+  </body>
+</html>

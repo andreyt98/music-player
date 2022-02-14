@@ -1,0 +1,15 @@
+// main sass file
+
+// BASE
+@import "src/sass/base/_variables";
+@import "src/sass/base/_mixins";
+@import "src/sass/base/_globals";
+
+// COMPONENTS
+
+// LAYOUT
+@import "src/sass/layout/_container";
+@import "src/sass/layout/_aside";
+@import "src/sass/layout/_header";
+@import "src/sass/layout/_playlist";
+@import "src/sass/layout/_footer";
