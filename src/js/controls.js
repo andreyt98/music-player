@@ -23,7 +23,7 @@ const albums = {
 
 const songs = ["Delusion Pandemic", "Ghost Walking", "Checkmate"];
 
-songIndex = 0;
+let songIndex = 0;
 
 function selectAlbumImg(song) {
   if (song.innerText == "Delusion Pandemic") {
@@ -124,7 +124,7 @@ function setProgress(evt) {
   audio.currentTime = (clickX / width) * duration;
 }
 
-playlistItem.forEach(function (element) {
+playlistItem.forEach((element) => {
   element.addEventListener("click", function () {
     loadSongInfo(element);
     playSong();
@@ -135,7 +135,7 @@ prevBtn.addEventListener("click", prevSong);
 
 nextBtn.addEventListener("click", nextSong);
 
-playBtn.addEventListener("click", function () {
+playBtn.addEventListener("click", () => {
   if (isActive) {
     if (!audio.paused) {
       pauseSong();
@@ -149,16 +149,16 @@ audio.addEventListener("timeupdate", progress);
 
 progressBar.addEventListener("click", setProgress);
 
-audio.addEventListener("ended", function () {
+audio.addEventListener("ended", () => {
   if (repeatBtn.classList.contains("repeat-active")) {
-    this.currentTime = 0;
+    audio.currentTime = 0;
     playSong();
   } else {
     nextSong();
   }
 });
 
-repeatBtn.addEventListener("click", function () {
+repeatBtn.addEventListener("click", () => {
   if (isActive) {
     repeatBtn.classList.toggle("repeat-active");
   }

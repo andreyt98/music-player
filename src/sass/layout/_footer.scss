@@ -1,23 +1,22 @@
 .footer {
   width: 100%;
-  padding-inline: 1rem;
   border-top: 1px solid #ffffff38;
   background: linear-gradient(-8deg, #1a304d, #080a0e);
+  padding-block: 1rem;
+  padding-inline: 0.5rem;
 
   @media #{$tab-port-up} {
     grid-column: 1/4;
+    padding-inline: 1rem;
   }
 
   &__player {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 0.7fr 1fr 0.7fr;
 
     align-items: center;
 
-    width: 100vw;
-
-    padding: 0.5rem 1rem;
     width: 100%;
     height: 100%;
 
@@ -31,18 +30,15 @@
       }
       #title {
         font-weight: 700;
-        // display: none;
         opacity: 0;
       }
 
       .band {
-        // display: none;
         opacity: 0;
       }
     }
 
     audio {
-      // visibility: hidden;
       display: none;
     }
 
@@ -51,7 +47,6 @@
       flex-direction: column;
       align-items: center;
       gap: 0.8rem;
-      padding: 0.5rem;
 
       .bar {
         background: $white;
@@ -59,7 +54,6 @@
         height: 5px;
         border-radius: 12px;
         cursor: pointer;
-
 
         &__thumb {
           border-radius: 12px;
@@ -108,7 +102,7 @@
         }
       }
 
-      .repeat-active{
+      .repeat-active {
         color: $primary;
       }
     }
