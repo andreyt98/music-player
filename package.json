@@ -1,16 +1,27 @@
 {
   "name": "music-player",
   "version": "1.0.0",
-  "description": "",
-  "main": "gulpfile.js",
-  "scripts": {},
+  "description": "[DEMO](https://andreyt98.github.io/music-player/)",
+  "main": "index.js",
+  "scripts": {
+    "buildsass": "sass --watch --style=compressed ./src/sass/main.scss:./public/css/main.css",
+    "uglifyjs": "uglifyjs ./src/js/*.js --source-map url=app.min.js.map,includeSources -c -m  -o ./public/app.min.js ",
+    "watchjs": "watch 'npm run uglifyjs' src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreyt98/music-player.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreyt98/music-player/issues"
+  },
+  "homepage": "https://github.com/andreyt98/music-player#readme",
   "devDependencies": {
-    "dart-sass": "^1.25.0",
-    "gulp": "^4.0.2",
-    "gulp-sass": "^5.1.0",
-    "gulp-uglify": "^3.0.2",
-    "sass": "^1.49.7"
+    "sass": "^1.50.1",
+    "uglify-js": "^3.15.4",
+    "watch": "^1.0.2"
   }
 }
