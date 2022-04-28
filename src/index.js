@@ -1,3 +1,6 @@
+import './main.scss'
+const menuIcon = document.querySelector(".menu-icon");
+const menu = document.querySelector(".aside");
 const playlistItem = document.querySelectorAll(".song-title");
 const playBtn = document.getElementById("play");
 const nextBtn = document.getElementById("next");
@@ -25,6 +28,8 @@ const songs = ["Delusion Pandemic", "Ghost Walking", "Checkmate"];
 
 let songIndex = 0;
 
+menuIcon.addEventListener("click", () => menu.classList.toggle("aside-active"));
+
 function selectAlbumImg(song) {
   if (song.innerText == "Delusion Pandemic") {
     songIndex = 0;
@@ -48,7 +53,10 @@ function loadSongInfo(song) {
   songPlaying.style.opacity = "1";
 
   isActive = true;
-  audio.src = `songs/${songPlaying.innerText}.mp3`.replaceAll(" ", "");
+  audio.src = `../assets/songs/${songPlaying.innerText}.mp3`.replaceAll(
+    " ",
+    ""
+  );
 }
 
 function playSong() {
@@ -73,7 +81,7 @@ function prevSong() {
       songIndex = songs.length - 1;
     }
 
-    audio.src = `./songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
+    audio.src = `../assets/songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
     songPlaying.innerText = `${songs[songIndex]}`;
     selectAlbumImg(songPlaying);
 
@@ -88,7 +96,7 @@ function nextSong() {
       songIndex = 0;
     }
 
-    audio.src = `./songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
+    audio.src = `../assets/songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
     songPlaying.innerText = `${songs[songIndex]}`;
     selectAlbumImg(songPlaying);
     playSong();

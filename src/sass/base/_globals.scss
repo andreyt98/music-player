@@ -38,9 +38,7 @@ html {
 
 body {
   box-sizing: border-box;
-
-  // see if this overflow property works for your project or not
-  overflow-x: hidden;
+    overflow-x: hidden;
   color: $white;
 
   font-family: 'Poppins', sans-serif;
@@ -60,12 +58,6 @@ a {
   display: inline-block;
 }
 
-.white-space-no-wrap {
-  white-space: nowrap;
-}
+.white-space-no-wrap {white-space: nowrap;}
 
-
-
-img{
-  user-select: none;
-}
+img{user-select: none;}
