@@ -1,31 +1,21 @@
 .header {
   background: $band-background;
   width: 100%;
-
   background-size: cover;
   height: 40vh;
-
   position: relative;
 
-  @media #{$tab-up} {
-    height: 50vh;
-  }
-  &__title {
-    position: absolute;
-    bottom: 10%;
-    left: 10%;
+  @media #{$sm} { height: 50vh;}
 
+  &__title {
+    @include position($position: absolute, $left: 10%, $bottom: 10%);
     h1 {
       text-shadow: 4px 4px #0c1530;
       font-size: 340%;
     }
   }
-
-
   .bg{
-    position: absolute;
-    left: 0;
-    top: 0;
+    @include position($position: absolute, $left: 0, $top: 0);
     width: 100%;
     height: 100%;
     background: linear-gradient(190deg,#0078a770, #b6000f11, #00000000);

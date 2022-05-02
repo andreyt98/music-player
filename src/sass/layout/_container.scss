@@ -1,14 +1,6 @@
 .container{
-
     display: grid;
     grid-template-rows: auto 1fr auto;   
-
-    overflow: hidden;
-    
-    
-    @media #{$tab-port-up}{
-        grid-template-columns: 0.3fr 1fr;
-
-    }
-    
+    overflow: hidden;   
+    @media #{$md-xl}{grid-template-columns: 0.3fr 1fr;}  
 }

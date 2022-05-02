@@ -2,45 +2,20 @@
 // base colors
 $white: #fff;
 $black: #000;
-
 $primary:#1DB954;
-
 $blue: #1a304d;
 $lightBlue: #2c3849;
 $darkBlue: #080a0e;
-
 $grey: #fdfdfda1;
 $lightGrey: #ffffff38;
-
-
 $blue-linear-gradient: linear-gradient(185deg, $blue, $darkBlue);
 $black-linear-gradient: linear-gradient(185deg, $black, $darkBlue);
 
-$band-background: url(https://consequence.net/wp-content/uploads/2020/02/Lamb-of-God-2020.jpg?quality=80)
-  no-repeat top;
-
-
-
-
-
-
-
-
+$band-background: url(https://consequence.net/wp-content/uploads/2020/02/Lamb-of-God-2020.jpg?quality=80) no-repeat top;
 
 // MEDIA QUERIES
-
-$small-phone-down: "only screen and (max-width: 180px)";
-
-$phone-down: "only screen and (max-width: 300px)";
-$phone-up: "only screen and (min-width: 300px)";
-
-$tab-down: "only screen and (max-width: 600px)";
-$tab-up: "only screen and (min-width: 600px)";
-
-$tab-port-up: "only screen and (min-width: 900px)";
-
-$laptop-up: "only screen and (min-width: 1200px)";
-
-$desktop-up: "only screen and (min-width: 1800px)";
-
-// ...........................
+$xs: "only screen and (min-width: 320px)";
+$sm: "only screen and (min-width: 640px)";
+$md: "only screen and (min-width: 768px)";
+$md-xl: "only screen and (min-width: 768px)";
+$lg: "only screen and (min-width: 900px)";

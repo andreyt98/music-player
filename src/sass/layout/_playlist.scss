@@ -1,65 +1,33 @@
 .playlist {
   background: $blue-linear-gradient;
-
   user-select: none;
-
   padding: 1rem;
 
-  @media #{$tab-port-up} {
-    grid-column: 2/4;
-  }
+  @media #{$md-xl} { grid-column: 2/4;}
 
-  #description {
-    color: $grey;
-  }
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+  #description {color: $grey; }
+  ul {@include flex($direction: column, $gap: 1rem);}
 
   li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex( $justify: space-between, $align: center);
     padding: 0.3rem .8rem;
     border-radius: 12px;
+    &:not(:first-of-type){cursor: pointer;}
 
-    &:not(:first-of-type){
-      cursor: pointer;
+    img{width: 15%;}
 
-    }
-
-    img{
-      width: 15%;
-    }
-
-    &:not(:nth-of-type(1)) {
-      &:hover {
-        background: $blue;
-      }
-    }
+    &:not(:nth-of-type(1)) {&:hover { background: $blue;}}
 
     p {
       flex-grow: 1;
       flex-basis: 0;
       font-weight: 300;
-      // transition: all 0.3s;
-
-      &:nth-child(2) {
-        text-align: center;
-      }
-
-      &:nth-child(3) {
-        text-align: right;
-      }
-      
+      &:nth-child(2) {text-align: center;}
+      &:nth-child(3) {text-align: right;}     
     }
     
-    .song-title{
-      
+    .song-title{      
       &:hover{
-        // font-weight: 600;
         text-shadow: 2px 3px rgb(14, 14, 14);
         color: $primary;
       }

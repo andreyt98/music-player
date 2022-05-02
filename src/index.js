@@ -53,7 +53,7 @@ function loadSongInfo(song) {
   songPlaying.style.opacity = "1";
 
   isActive = true;
-  audio.src = `../assets/songs/${songPlaying.innerText}.mp3`.replaceAll(
+  audio.src = `./assets/songs/${songPlaying.innerText}.mp3`.replaceAll(
     " ",
     ""
   );
@@ -81,7 +81,7 @@ function prevSong() {
       songIndex = songs.length - 1;
     }
 
-    audio.src = `../assets/songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
+    audio.src = `./assets/songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
     songPlaying.innerText = `${songs[songIndex]}`;
     selectAlbumImg(songPlaying);
 
@@ -96,7 +96,7 @@ function nextSong() {
       songIndex = 0;
     }
 
-    audio.src = `../assets/songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
+    audio.src = `./assets/songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
     songPlaying.innerText = `${songs[songIndex]}`;
     selectAlbumImg(songPlaying);
     playSong();
