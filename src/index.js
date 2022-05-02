@@ -18,28 +18,38 @@ const totalDuration = document.getElementById("duration");
 
 const repeatBtn = document.querySelector(".repeat");
 
-const albums = {
-  a1: "https://upload.wikimedia.org/wikipedia/en/e/ed/Lamb_of_God_-_VII_Sturm_und_Drang.jpg",
-  a2: "https://upload.wikimedia.org/wikipedia/en/e/e0/LOG_Resolution.jpg",
-  a3: "https://upload.wikimedia.org/wikipedia/en/f/fc/Lamb_of_God_-_Lamb_of_God.jpg",
-};
-
-const songs = ["Delusion Pandemic", "Ghost Walking", "Checkmate"];
+const songs = [
+  {
+    album:
+      "https://upload.wikimedia.org/wikipedia/en/e/ed/Lamb_of_God_-_VII_Sturm_und_Drang.jpg",
+    name: "Delusion Pandemic",
+  },
+  {
+    album: "https://upload.wikimedia.org/wikipedia/en/e/e0/LOG_Resolution.jpg",
+    name: "Ghost Walking",
+  },
+  {
+    album:
+      "https://upload.wikimedia.org/wikipedia/en/f/fc/Lamb_of_God_-_Lamb_of_God.jpg",
+    name: "Checkmate",
+  },
+];
 
 let songIndex = 0;
-
-menuIcon.addEventListener("click", () => menu.classList.toggle("aside-active"));
 
 function selectAlbumImg(song) {
   if (song.innerText == "Delusion Pandemic") {
     songIndex = 0;
-    albumImg.src = albums.a1;
+    albumImg.src = songs[0].album;
+    // albumImg.src = albums.a1;
   } else if (song.innerText == "Ghost Walking") {
-    albumImg.src = albums.a2;
+    // albumImg.src = albums.a2;
+    albumImg.src = songs[1].album;
     songIndex = 1;
   } else {
     songIndex = 2;
-    albumImg.src = albums.a3;
+    // albumImg.src = albums.a3;
+    albumImg.src = songs[2].album;
   }
 }
 
@@ -60,17 +70,17 @@ function loadSongInfo(song) {
 }
 
 function playSong() {
+  audio.play();
+
   playBtn.classList.remove("fa-play");
   playBtn.classList.add("fa-pause");
-
-  audio.play();
 }
 
 function pauseSong() {
+  audio.pause();
+
   playBtn.classList.add("fa-play");
   playBtn.classList.remove("fa-pause");
-
-  audio.pause();
 }
 
 function prevSong() {
@@ -81,8 +91,8 @@ function prevSong() {
       songIndex = songs.length - 1;
     }
 
-    audio.src = `./assets/songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
-    songPlaying.innerText = `${songs[songIndex]}`;
+    audio.src = `./assets/songs/${songs[songIndex].name}.mp3`.replaceAll(" ", "");
+    songPlaying.innerText = `${songs[songIndex].name}`;
     selectAlbumImg(songPlaying);
 
     playSong();
@@ -96,8 +106,8 @@ function nextSong() {
       songIndex = 0;
     }
 
-    audio.src = `./assets/songs/${songs[songIndex]}.mp3`.replaceAll(" ", "");
-    songPlaying.innerText = `${songs[songIndex]}`;
+    audio.src = `./assets/songs/${songs[songIndex].name}.mp3`.replaceAll(" ", "");
+    songPlaying.innerText = `${songs[songIndex].name}`;
     selectAlbumImg(songPlaying);
     playSong();
   }
@@ -131,6 +141,8 @@ function setProgress(evt) {
 
   audio.currentTime = (clickX / width) * duration;
 }
+
+menuIcon.addEventListener("click", () => menu.classList.toggle("aside-active"));
 
 playlistItem.forEach((element) => {
   element.addEventListener("click", function () {
@@ -171,3 +183,9 @@ repeatBtn.addEventListener("click", () => {
     repeatBtn.classList.toggle("repeat-active");
   }
 });
+
+document.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains("link")) {
+    evt.preventDefault();
+  }
+})
