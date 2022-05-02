@@ -5,30 +5,7 @@
   padding: 0;
   box-sizing: inherit;
 }
-html {
-  // font-size: 62.5%;
-  scroll-behavior: smooth;
-
-  // @media #{$phone-up} {
-  //   //300px
-  //   font-size: 1rem;
-  // }
-
-  // @media #{$tab-up} {
-  //   //600px
-  //   font-size: 1.1rem;
-  // }
-
-  // @media #{$laptop-up} {
-  //   //1200px
-  //   font-size: 1.3rem;
-  // }
-
-  // @media #{$desktop-up} {
-  //   //1800px
-  //   font-size: 1.5rem;
-  // }
-}
+html {scroll-behavior: smooth;}
 body {
   box-sizing: border-box;
   overflow-x: hidden;
