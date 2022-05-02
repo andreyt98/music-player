@@ -1,60 +1,54 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const path = require("path");
+
+const styles = {
+  apply: {
+    test: /\.(css|s[ac]ss)$/,
+    exclude: /(style\.css|main\.scss)$/,
+    use: ["style-loader", "css-loader", "sass-loader"],
+  },
+
+  createFile: {
+    test: /(style\.css|main\.scss)$/,
+    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+  },
+};
+
+const rulesForHTML = {
+  test: /\.html$/,
+  loader: "html-loader",
+  options: {
+    sources: false,
+    minimize: true,
+  },
+};
+
+const rulesForImages = {
+  test: /\.(png|svg|jpg|gif|webp)%/,
+  use: [
+    {
+      loader: "file-loader",
+      options: {
+        esModule: false,
+      },
+    },
+  ],
+};
+
+const rules = [styles.apply, styles.createFile, rulesForHTML, rulesForImages];
+
 module.exports = {
   mode: "production",
 
-  devServer: {
-    watchFiles: ["./src/*"],
-    open: true,
-    hot: true,
-  },
-
   output: {
+    path: path.resolve(__dirname, "docs"),
     filename: "main.js",
     clean: true,
   },
-  optimization: {
-    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        test: /\.s[ac]ss$/i,
-        exclude: /style\.css$/,
-        exclude: /main\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
-      },
-      {
-        test: /style\.css$/,
-        test: /main\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-      },
 
-      {
-        test: /\.html$/,
-        loader: "html-loader",
-        options: {
-          sources: false,
-          minimize: true,
-        },
-      },
-      {
-        test: /\.(png|svg|jpg|gif|webp)%/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              esModule: false,
-            },
-          },
-        ],
-      },
-    ],
-  },
+  module: { rules },
 
   plugins: [
     new HtmlWebPackPlugin({
@@ -76,5 +70,10 @@ module.exports = {
       ],
     }),
   ],
-};
 
+  devServer: {
+    watchFiles: ["./src/*"],
+    open: true,
+    hot: true,
+  },
+};
