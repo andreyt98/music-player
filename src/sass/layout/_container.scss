@@ -2,5 +2,6 @@
     display: grid;
     grid-template-rows: auto 1fr auto;   
     overflow: hidden;   
+    height: 100vh;
     @media #{$md-xl}{grid-template-columns: 0.3fr 1fr;}  
 }
