@@ -3,7 +3,7 @@
   user-select: none;
   padding: 1rem;
 
-  @media #{$md-xl} { grid-column: 2/4;}
+  @media #{$md-xl} { grid-column: 2/4; padding: 2rem;}
 
   #description {color: $grey; }
   ul {@include flex($direction: column, $gap: 1rem);}
