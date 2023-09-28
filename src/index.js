@@ -1,7 +1,7 @@
 import './main.scss'
 const menuIcon = document.querySelector(".menu-icon");
 const menu = document.querySelector(".aside");
-const playlistItem = document.querySelectorAll(".song-title");
+const playlistItem = document.querySelectorAll(".playlist li");
 const playBtn = document.getElementById("play");
 const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("prev");
@@ -62,7 +62,6 @@ function loadSongInfo(song) {
   bandName.style.opacity = "1";
   songPlaying.style.opacity = "1";
 
-  isActive = true;
   audio.src = `./assets/songs/${songPlaying.innerText}.mp3`.replaceAll(
     " ",
     ""
@@ -71,6 +70,7 @@ function loadSongInfo(song) {
 
 function playSong() {
   audio.play();
+  audio.classList.add("active")
 
   playBtn.classList.remove("fa-play");
   playBtn.classList.add("fa-pause");
@@ -96,6 +96,15 @@ function prevSong() {
     selectAlbumImg(songPlaying);
 
     playSong();
+
+    document.querySelector('li.song-active').classList.remove('song-active')
+    playlistItem.forEach((element) => {
+
+          if(element.children[0].innerText == songs[songIndex].name ){
+            console.log("current song:",songs[songIndex].name )
+            element.classList.add('song-active')
+          }
+    });
   }
 }
 function nextSong() {
@@ -110,6 +119,15 @@ function nextSong() {
     songPlaying.innerText = `${songs[songIndex].name}`;
     selectAlbumImg(songPlaying);
     playSong();
+
+    document.querySelector('li.song-active').classList.remove('song-active')
+    playlistItem.forEach((element) => {
+
+          if(element.children[0].innerText == songs[songIndex].name ){
+            console.log("current song:",songs[songIndex].name )
+            element.classList.add('song-active')
+          }
+    });
   }
 }
 
@@ -145,9 +163,18 @@ function setProgress(evt) {
 menuIcon.addEventListener("click", () => menu.classList.toggle("aside-active"));
 
 playlistItem.forEach((element) => {
+
   element.addEventListener("click", function () {
-    loadSongInfo(element);
+    isActive = true;
+    loadSongInfo(element.firstElementChild);
     playSong();
+    
+    const current = document.querySelector('li.song-active')
+    if( current){
+      current.classList.remove('song-active')
+    }
+    element.classList.add('song-active')
+    
   });
 });
 
@@ -157,10 +184,10 @@ nextBtn.addEventListener("click", nextSong);
 
 playBtn.addEventListener("click", () => {
   if (isActive) {
-    if (!audio.paused) {
-      pauseSong();
-    } else {
+    if (audio.paused) {
       playSong();
+    } else {
+      pauseSong();
     }
   }
 });
