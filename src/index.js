@@ -37,18 +37,17 @@ const songs = [
 
 let songIndex = 0;
 
-function selectAlbumImg(song) {
-  if (song.innerText == "Delusion Pandemic") {
+function selectAlbumImg(songPlaying) {
+  if (songPlaying.innerText == songs[0].name) {
     songIndex = 0;
     albumImg.src = songs[0].album;
-    // albumImg.src = albums.a1;
-  } else if (song.innerText == "Ghost Walking") {
-    // albumImg.src = albums.a2;
+
+  } else if (songPlaying.innerText == songs[1].name) {
     albumImg.src = songs[1].album;
     songIndex = 1;
+
   } else {
     songIndex = 2;
-    // albumImg.src = albums.a3;
     albumImg.src = songs[2].album;
   }
 }
@@ -72,15 +71,18 @@ function playSong() {
   audio.play();
   audio.classList.add("active")
 
-  playBtn.classList.remove("fa-play");
-  playBtn.classList.add("fa-pause");
+  changeClasses(playBtn, "fa-pause","fa-play" )
 }
 
 function pauseSong() {
   audio.pause();
 
-  playBtn.classList.add("fa-play");
-  playBtn.classList.remove("fa-pause");
+  changeClasses(playBtn, "fa-play", "fa-pause")
+}
+
+function changeClasses(element, classToAdd, classToDelete){
+  element.classList.add(classToAdd);
+  element.classList.remove(classToDelete);
 }
 
 function prevSong() {
@@ -97,14 +99,8 @@ function prevSong() {
 
     playSong();
 
-    document.querySelector('li.song-active').classList.remove('song-active')
-    playlistItem.forEach((element) => {
-
-          if(element.children[0].innerText == songs[songIndex].name ){
-            console.log("current song:",songs[songIndex].name )
-            element.classList.add('song-active')
-          }
-    });
+    const songToPlay = songs[songIndex]
+    setAsActive(songToPlay)
   }
 }
 function nextSong() {
@@ -120,15 +116,19 @@ function nextSong() {
     selectAlbumImg(songPlaying);
     playSong();
 
-    document.querySelector('li.song-active').classList.remove('song-active')
-    playlistItem.forEach((element) => {
-
-          if(element.children[0].innerText == songs[songIndex].name ){
-            console.log("current song:",songs[songIndex].name )
-            element.classList.add('song-active')
-          }
-    });
+    const songToPlay = songs[songIndex]
+    setAsActive(songToPlay)
   }
+}
+
+function setAsActive(song){
+
+  //we delete the active class that the previous song had
+  document.querySelector('li.song-active').classList.remove('song-active')
+
+  //we use Arrayfrom because playlistItem is a nodeList which is an object that holds a collection of nodes of the DOM
+  const active = Array.from(playlistItem).find((item) => item.children[0].innerText === song.name);  // console.log(active)
+  active.classList.add('song-active')
 }
 
 function progress(evt) {
