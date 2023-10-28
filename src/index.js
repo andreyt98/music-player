@@ -1,81 +1,104 @@
 import './main.scss'
-const menuIcon = document.querySelector(".menu-icon");
+
 const menu = document.querySelector(".aside");
-const playlistItem = document.querySelectorAll(".playlist li");
+const menuIcon = document.querySelector(".menu-icon");
+const audioElement = document.getElementById("audio");
+
+// PLAYLIST SECTION VARIABLES
+const playlistItems = document.querySelectorAll(".playlist li");
+
+// PLAYER SECTION VARIABLES
+const currentSongName = document.querySelector("#title");
 const playBtn = document.getElementById("play");
 const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("prev");
-const audio = document.getElementById("audio");
-let isActive = audio.classList.contains("active");
-
-const albumImg = document.querySelector(".player__info img");
-const songPlaying = document.querySelector("#title");
+const currentAlbumImg = document.querySelector(".player__info img");
 const bandName = document.querySelector(".band");
-
 const progressBar = document.querySelector(".bar");
 const progressThumb = document.querySelector(".bar__thumb");
 const totalDuration = document.getElementById("duration");
-
 const repeatBtn = document.querySelector(".repeat");
+// -----------------------------------------------------
+
+let isAudioPlaying = audioElement.classList.contains("active");
 
 const songs = [
   {
+    id: 1, 
     album:
       "https://upload.wikimedia.org/wikipedia/en/e/ed/Lamb_of_God_-_VII_Sturm_und_Drang.jpg",
     name: "Delusion Pandemic",
+    src: `./assets/songs/DelusionPandemic.mp3`
   },
   {
+    id: 2, 
     album: "https://upload.wikimedia.org/wikipedia/en/e/e0/LOG_Resolution.jpg",
     name: "Ghost Walking",
+    src: `./assets/songs/GhostWalking.mp3`
+
   },
   {
+    id: 3, 
     album:
       "https://upload.wikimedia.org/wikipedia/en/f/fc/Lamb_of_God_-_Lamb_of_God.jpg",
     name: "Checkmate",
+    src: `./assets/songs/Checkmate.mp3`
+
   },
 ];
 
-let songIndex = 0;
+let ActiveSongIndex = 0;
 
-function selectAlbumImg(songPlaying) {
-  if (songPlaying.innerText == songs[0].name) {
-    songIndex = 0;
-    albumImg.src = songs[0].album;
+function setActiveSongStyle(ActiveSongIndex){
 
-  } else if (songPlaying.innerText == songs[1].name) {
-    albumImg.src = songs[1].album;
-    songIndex = 1;
-
-  } else {
-    songIndex = 2;
-    albumImg.src = songs[2].album;
+  const isASongActive = document.querySelector('li.song-active')
+  if(isASongActive){
+    isASongActive.classList.remove('song-active')
   }
+  // we use Arrayfrom because playlistItem is a nodeList which is an object that holds a collection of nodes of the DOM
+  const newActiveSong = Array.from(playlistItems).find((item) => item.getAttribute("data-id") == ActiveSongIndex); 
+  newActiveSong.classList.add('song-active')
 }
 
-function loadSongInfo(song) {
-  songPlaying.innerText = song.innerText;
-  albumImg.style.borderRadius = "10px";
+playlistItems.forEach((item,index) => {
 
-  selectAlbumImg(songPlaying);
+  if(index>0){
+
+    item.addEventListener("click", function () {
+      isAudioPlaying = true;
+      const songClicked = songs.find((song) =>  song.id == item.getAttribute("data-id"))
+      ActiveSongIndex = songClicked.id
+
+      loadSongInfoToPlayer(ActiveSongIndex)
+      playSong();
+      setActiveSongStyle(ActiveSongIndex)
+
+    });
+  }
+});
+
+function loadSongInfoToPlayer(songIndex) {
+ 
+  const song = songs[songIndex-1]
+  audioElement.src = song.src
+  currentAlbumImg.src = song.album
+  currentAlbumImg.style.borderRadius = "10px";
+
+  currentSongName.innerText = song.name;
+  currentSongName.style.opacity = "1";
 
   bandName.style.opacity = "1";
-  songPlaying.style.opacity = "1";
-
-  audio.src = `./assets/songs/${songPlaying.innerText}.mp3`.replaceAll(
-    " ",
-    ""
-  );
 }
 
 function playSong() {
-  audio.play();
-  audio.classList.add("active")
+  audioElement.play();
+  audioElement.classList.add("active")
 
   changeClasses(playBtn, "fa-pause","fa-play" )
 }
 
 function pauseSong() {
-  audio.pause();
+  audioElement.pause();
 
   changeClasses(playBtn, "fa-play", "fa-pause")
 }
@@ -86,61 +109,45 @@ function changeClasses(element, classToAdd, classToDelete){
 }
 
 function prevSong() {
-  if (isActive) {
-    songIndex--;
+  if (isAudioPlaying) {
+    ActiveSongIndex--;
 
-    if (songIndex < 0) {
-      songIndex = songs.length - 1;
+    if (ActiveSongIndex < 1) {
+      ActiveSongIndex = songs.length;
     }
 
-    audio.src = `./assets/songs/${songs[songIndex].name}.mp3`.replaceAll(" ", "");
-    songPlaying.innerText = `${songs[songIndex].name}`;
-    selectAlbumImg(songPlaying);
-
+    loadSongInfoToPlayer(ActiveSongIndex)
     playSong();
 
-    const songToPlay = songs[songIndex]
-    setAsActive(songToPlay)
+    setActiveSongStyle(ActiveSongIndex)
   }
 }
 function nextSong() {
-  if (isActive) {
-    songIndex++;
+  if (isAudioPlaying) {
+    ActiveSongIndex++;
 
-    if (songIndex > songs.length - 1) {
-      songIndex = 0;
+    if (ActiveSongIndex > songs.length ) {
+      ActiveSongIndex = 0;
     }
 
-    audio.src = `./assets/songs/${songs[songIndex].name}.mp3`.replaceAll(" ", "");
-    songPlaying.innerText = `${songs[songIndex].name}`;
-    selectAlbumImg(songPlaying);
+    loadSongInfoToPlayer(ActiveSongIndex)
     playSong();
 
-    const songToPlay = songs[songIndex]
-    setAsActive(songToPlay)
+    setActiveSongStyle(ActiveSongIndex)
   }
 }
 
-function setAsActive(song){
-
-  //we delete the active class that the previous song had
-  document.querySelector('li.song-active').classList.remove('song-active')
-
-  //we use Arrayfrom because playlistItem is a nodeList which is an object that holds a collection of nodes of the DOM
-  const active = Array.from(playlistItem).find((item) => item.children[0].innerText === song.name);  // console.log(active)
-  active.classList.add('song-active')
-}
 
 function progress(evt) {
-  if (isActive) {
+  if (isAudioPlaying) {
     const { duration, currentTime } = evt.target;
 
     const progress = (currentTime / duration) * 100;
 
     progressThumb.style.width = `${progress}%`;
 
-    let minutes = parseInt((audio.currentTime / 60) % 60);
-    let seconds = parseInt(audio.currentTime % 60);
+    let minutes = parseInt((audioElement.currentTime / 60) % 60);
+    let seconds = parseInt(audioElement.currentTime % 60);
 
     if (seconds < 10) {
       seconds = "0" + seconds;
@@ -155,36 +162,21 @@ function setProgress(evt) {
 
   const clickX = evt.offsetX;
 
-  const duration = audio.duration;
+  const duration = audioElement.duration;
 
-  audio.currentTime = (clickX / width) * duration;
+  audioElement.currentTime = (clickX / width) * duration;
 }
 
 menuIcon.addEventListener("click", () => menu.classList.toggle("aside-active"));
 
-playlistItem.forEach((element) => {
-
-  element.addEventListener("click", function () {
-    isActive = true;
-    loadSongInfo(element.firstElementChild);
-    playSong();
-    
-    const current = document.querySelector('li.song-active')
-    if( current){
-      current.classList.remove('song-active')
-    }
-    element.classList.add('song-active')
-    
-  });
-});
 
 prevBtn.addEventListener("click", prevSong);
 
 nextBtn.addEventListener("click", nextSong);
 
 playBtn.addEventListener("click", () => {
-  if (isActive) {
-    if (audio.paused) {
+  if (isAudioPlaying) {
+    if (audioElement.paused) {
       playSong();
     } else {
       pauseSong();
@@ -192,13 +184,13 @@ playBtn.addEventListener("click", () => {
   }
 });
 
-audio.addEventListener("timeupdate", progress);
+audioElement.addEventListener("timeupdate", progress);
 
 progressBar.addEventListener("click", setProgress);
 
-audio.addEventListener("ended", () => {
+audioElement.addEventListener("ended", () => {
   if (repeatBtn.classList.contains("repeat-active")) {
-    audio.currentTime = 0;
+    audioElement.currentTime = 0;
     playSong();
   } else {
     nextSong();
@@ -206,7 +198,7 @@ audio.addEventListener("ended", () => {
 });
 
 repeatBtn.addEventListener("click", () => {
-  if (isActive) {
+  if (isAudioPlaying) {
     repeatBtn.classList.toggle("repeat-active");
   }
 });
@@ -216,3 +208,9 @@ document.addEventListener('click', (evt) => {
     evt.preventDefault();
   }
 })
+
+Array.from(playlistItems).forEach((element, index) => {
+  if(index>0){
+    element.setAttribute("data-id", index )
+  }
+});
